@@ -6,8 +6,11 @@
   vars:
     sudoers:
       - pietrushnic
+
+  roles:
+    - { role: avnes.ansible-role-slack, slack_tmp_dir: /tmp  }
   tasks:
-    - name: Install sudo package
+    - name: Install sudo and zsh packages
       apt:
         name: "{{ item }}"
         state: present
@@ -43,3 +46,51 @@
                   state=present
       notify: Restart ssh
 
+    - apt_repository:
+        repo: deb http://debian-archive.trafficmanager.net/debian/ stretch main contrib non-free
+        state: present
+
+    - apt_repository:
+        repo: deb-src http://debian-archive.trafficmanager.net/debian/ stretch main contrib non-free
+        state: present
+
+    - apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+
+    - apt_repository:
+        repo: deb http://repository.spotify.com stable non-free
+        filename: spotify
+        state: present
+
+    - name: Upgrade packages
+      apt: upgrade=safe
+
+    - name: Install essential packages
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items:
+        - build-essential
+        - vim
+        - git
+        - minicom
+        - telnet
+        - ser2net
+        - tmux
+        - cscope
+        - fonts-powerline
+        - linux-headers-amd64
+        - nvidia-driver
+        - powerline
+        - spotify-client
+        - virtualenv
+
+    - name: Mount WDC storage
+      mount:
+        path: /home/{{ item }}/storage/wdc
+        src: UUID=f5dd74b8-5e4c-44e1-8c57-ea157fb57ec7
+        fstype: ext4
+        state: mounted
+      with_items: "{{ sudoers }}"
