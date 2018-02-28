@@ -1,3 +1,8 @@
+# TODO:
+# - apply BKM
+# - add configuration for default system applications
+# - fix wornings
+# - apply correct security
 ---
 - hosts: noirinan
   become: yes
@@ -6,9 +11,37 @@
   vars:
     sudoers:
       - pietrushnic
-
   roles:
     - { role: avnes.ansible-role-slack, slack_tmp_dir: /tmp  }
+    - role: debops.apt_preferences
+      apt_preferences_group_list:
+        - package: '*'
+          suffix: '_stable'
+          pin: 'release a=stable'
+          priority: '1000'
+
+        - package: '*'
+          suffix: '_unstable'
+          pin: 'release a=unstable'
+          priority: '2'
+
+      apt_preferences__list:
+        - package: 'firefox'
+          pin: 'release a=unstable'
+          priority: '1001'
+
+        - package: 'libfontconfig1'
+          pin: 'release a=unstable'
+          priority: '1001'
+
+        - package: 'fontconfig-config'
+          pin: 'release a=unstable'
+          priority: '1001'
+
+        - package: 'libnss3'
+          pin: 'release a=unstable'
+          priority: '1001'
+
   tasks:
     - name: Install sudo and zsh packages
       apt:
@@ -47,6 +80,14 @@
       notify: Restart ssh
 
     - apt_repository:
+        repo: deb http://debian-archive.trafficmanager.net/debian/ unstable main
+        state: present
+
+    - apt_repository:
+        repo: deb-src http://debian-archive.trafficmanager.net/debian/ unstable main
+        state: present
+
+    - apt_repository:
         repo: deb http://debian-archive.trafficmanager.net/debian/ stretch main contrib non-free
         state: present
 
@@ -64,7 +105,7 @@
         state: present
 
     - name: Upgrade packages
-      apt: upgrade=safe
+      apt: upgrade=safe force=yes
 
     - name: Install essential packages
       apt:
@@ -89,6 +130,13 @@
         - thunderbird
         - hexchat
 
+    - name: Install essential packages
+      apt:
+        name: firefox
+        state: latest
+        update_cache: yes
+        default_release: unstable
+
     - name: Mount WDC storage
       mount:
         path: /home/{{ item }}/storage/wdc
@@ -104,3 +152,4 @@
 
     - name: Install skypeforlinux
       apt: deb="/tmp/skypeforlinux.deb"
+
