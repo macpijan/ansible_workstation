@@ -86,6 +86,8 @@
         - powerline
         - spotify-client
         - virtualenv
+        - thunderbird
+        - hexchat
 
     - name: Mount WDC storage
       mount:
@@ -94,3 +96,11 @@
         fstype: ext4
         state: mounted
       with_items: "{{ sudoers }}"
+
+    - name: Download skypeforlinux
+      get_url:
+        url: https://repo.skype.com/latest/skypeforlinux-64.deb
+        dest: /tmp/skypeforlinux.deb
+
+    - name: Install skypeforlinux
+      apt: deb="/tmp/skypeforlinux.deb"
