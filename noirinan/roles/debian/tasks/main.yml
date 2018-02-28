@@ -1,0 +1,16 @@
+---
+- name: Upgrade packages
+  apt: upgrade=safe
+
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - build-essential
+  - git
+  - minicom
+  - telnet
+  - vim
+  - zsh

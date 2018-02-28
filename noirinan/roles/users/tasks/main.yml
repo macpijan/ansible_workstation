@@ -1,0 +1,28 @@
+---
+- name: Add Unix Admins users
+  user: name={{ items }} group=users groups=wheel
+  with_items:
+    - pietrushnic
+
+- name: Make sure we have a 'wheel' group
+  group:
+    name=wheel
+    state=present
+
+- name: Allow wheel group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
+- name: Add sudoers users to wheel group
+  user: name=deployer groups=wheel append=yes state=present createhome=yes
+
+- name: Disallow root SSH access
+  lineinfile: dest=/etc/ssh/sshd_config
+              regexp="^PermitRootLogin"
+              line="PermitRootLogin no"
+              state=present
+  notify: Restart ssh
+

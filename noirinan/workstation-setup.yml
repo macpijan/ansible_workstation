@@ -1,0 +1,45 @@
+---
+- hosts: noirinan
+  become: yes
+  become_user: root
+  become_method: su
+  vars:
+    sudoers:
+      - pietrushnic
+  tasks:
+    - name: Install sudo package
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items:
+        - sudo
+        - zsh
+
+    - name: Make sure we have a 'wheel' group
+      group:
+        name=wheel
+        state=present
+
+    - name: Allow wheel group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
+    - name: Add sudoers users to wheel group
+      user:
+        name: "{{ item }}"
+        groups: wheel
+        shell: /bin/zsh
+        append: yes
+      with_items: "{{ sudoers }}"
+
+    - name: Disallow root SSH access
+      lineinfile: dest=/etc/ssh/sshd_config
+                  regexp="^PermitRootLogin"
+                  line="PermitRootLogin no"
+                  state=present
+      notify: Restart ssh
+
