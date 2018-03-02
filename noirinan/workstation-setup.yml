@@ -3,6 +3,7 @@
 # - add configuration for default system applications
 # - fix wornings
 # - apply correct security
+# - keys managemetn in Enigmail
 ---
 - hosts: noirinan
   become: yes
