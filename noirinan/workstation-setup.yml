@@ -130,6 +130,8 @@
         - virtualenv
         - thunderbird
         - hexchat
+        - binawalk
+        - cmake
 
     - name: Install essential packages
       apt:
