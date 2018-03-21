@@ -1,0 +1,18 @@
+---
+- hosts: spyhill
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  roles:
+    - role: PeterMosmans.customize-gnome
+
+  vars:
+    gnome_user: pietrushnic
+    gnome_gsettings:
+      - schema: org.gnome.settings-daemon.plugins.power
+        key: sleep-inactive-ac-timeout
+        value: 0
+      - schema: org.gnome.settings-daemon.plugins.power
+        key: sleep-inactive-ac-type
+        value: "nothing"
