@@ -42,6 +42,10 @@
         - package: 'libnss3'
           pin: 'release a=unstable'
           priority: '1001'
+    - role: mongrelion.docker
+      docker_config:
+        graph: "/home/pietrushnic/storage/wdc/docker"
+        storage-driver: "overlay"
 
   tasks:
     - name: Install sudo and zsh packages
@@ -70,6 +74,20 @@
         name: "{{ item }}"
         groups: wheel
         shell: /bin/zsh
+        append: yes
+      with_items: "{{ sudoers }}"
+
+    - name: Add sudoers users to dialout group
+      user:
+        name: "{{ item }}"
+        groups: dialout
+        append: yes
+      with_items: "{{ sudoers }}"
+
+    - name: Add sudoers users to docker group
+      user:
+        name: "{{ item }}"
+        groups: docker
         append: yes
       with_items: "{{ sudoers }}"
 
@@ -130,15 +148,24 @@
         - virtualenv
         - thunderbird
         - hexchat
-        - binawalk
+        - binwalk
         - cmake
+        - mc
+        - tree
+        - pkg-config
+        - libxml2-dev
+        - libssl-dev
+        - hexedit
+        - fonts-powerline
+        - powerline
+        - zlib1g-dev
 
-    - name: Install essential packages
-      apt:
-        name: firefox
-        state: latest
-        update_cache: yes
-        default_release: unstable
+#    - name: Install essential packages
+#      apt:
+#        name: firefox
+#        state: latest
+#        update_cache: yes
+#        default_release: unstable
 
     - name: Mount WDC storage
       mount:
