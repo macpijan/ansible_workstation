@@ -1,0 +1,5 @@
+---
+- hosts: faroth
+  become: yes
+  become_user: root
+  become_method: su
