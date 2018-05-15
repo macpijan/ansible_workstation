@@ -164,4 +164,5 @@
         volumes:
           - /var/netboot:/srv/http
           - /var/debian-stable:/srv/nfs/debian
+          - /var/xen:/srv/nfs/xen
           - /var/voyage:/srv/nfs/voyage
