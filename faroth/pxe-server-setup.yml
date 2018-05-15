@@ -1,5 +1,162 @@
 ---
 - hosts: faroth
+  user: debian
   become: yes
   become_user: root
   become_method: su
+  roles:
+    - role: debops.apt_preferences
+
+  tasks:
+    - name: Add Docker CE key to apt
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Remove cdrom repo
+      apt_repository:
+        repo: deb cdrom:[Debian GNU/Linux 9.4.0 _Stretch_ - Official amd64 xfce-CD Binary-1 20180310-11:21]/ stretch main
+        state: absent
+
+    - name: Add trffic manager stable deb repo
+      apt_repository:
+        repo: deb http://debian-archive.trafficmanager.net/debian/ stable main contrib non-free
+        state: present
+
+    - name: Add trffic manager stable deb-src repo
+      apt_repository:
+        repo: deb-src http://debian-archive.trafficmanager.net/debian/ stable main contrib non-free
+        state: present
+
+    - name: Add Docker repo
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+        state: present
+
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+        state: present
+
+    - name: Install essential packages
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items:
+        docker-ce
+
+    - name: add default user to docker group
+      user:
+        name: debian
+        groups: docker
+        append: yes
+
+    - name: Get netboot repository
+      git:
+        repo: https://github.com/3mdeb/netboot.git
+        dest: /var/netboot
+        force: yes
+
+    - name: Set NFS server IP in netboot/menu.ipxe
+      replace:
+        path: /var/netboot/menu.ipxe
+        regexp: 'replace_with_ip'
+        replace: "{{ ansible_default_ipv4.address }}"
+
+    - name: Get kernels
+      get_url:
+        url: https://cloud.3mdeb.com/index.php/s/zYdqxiFgWIpVIfj/download
+        dest: /tmp/kernels.tar.gz
+
+    - name: Get Debian rootfs
+      get_url:
+        url: https://cloud.3mdeb.com/index.php/s/nV7za1cPtVGeERH/download
+        dest: /tmp/debian-stable.tar.gz
+
+    - name: Get Xen rootfs
+      get_url:
+        url: https://cloud.3mdeb.com/index.php/s/4WoGibldfRYqR4Z/download
+        dest: /tmp/xen.tar.gz
+
+    - name: Get Voyage
+      get_url:
+        url: https://cloud.3mdeb.com/index.php/s/rUZPwRHOjxpSxN4/download
+        dest: /tmp/voyage.tar.gz
+
+    - name: Create /var/voyage
+      file:
+        path: /var/voyage
+        state: directory
+
+    - name: Unarchive kernels
+      unarchive:
+        src: /tmp/kernels.tar.gz
+        dest: /var/netboot
+        remote_src: yes
+        creates: /var/netboot/kernels
+
+    - name: Unarchive Debian rootfs
+      unarchive:
+        src: /tmp/debian-stable.tar.gz
+        dest: /var
+        remote_src: yes
+        creates: /var/debian-stable
+
+    - name: Unarchive Xen rootfs
+      unarchive:
+        src: /tmp/xen.tar.gz
+        dest: /var
+        remote_src: yes
+        creates: /var/xen
+
+    - name: Unarchive Voyage
+      unarchive:
+        src: /tmp/voyage.tar.gz
+        dest: /var/voyage
+        remote_src: yes
+        creates: /var/voyage
+
+    - name: Mount nfsd
+      mount:
+        path: /proc/fs/nfsd
+        src: nfsd
+        fstype: nfsd
+        state: present
+
+    - name: Start 3mdeb/pxe-server Docker container
+      docker_container:
+        name: pxe-server
+        state: started
+        image: 3mdeb/pxe-server:latest
+        pull: yes
+        command: bash /usr/local/bin/run.sh
+        restart: yes
+        restart_policy: always
+        privileged: yes
+        published_ports:
+          - "111:111/tcp"
+          - "2049:2049/tcp"
+          - "8000:8000/tcp"
+          - "627:627/tcp"
+          - "627:627/udp"
+          - "875:875/tcp"
+          - "875:875/udp"
+          - "892:892/tcp"
+          - "892:892/udp"
+          - "111:111/udp"
+          - "2049:2049/udp"
+          - "10053:10053/udp"
+          - "10053:10053/tcp"
+          - "32769:32769/tcp"
+          - "32769:32769/udp"
+          - "32765:32765/tcp"
+          - "32765:32765/udp"
+          - "32766:32766/tcp"
+          - "32766:32766/udp"
+          - "32767:32767/tcp"
+          - "32767:32767/udp"
+        volumes:
+          - /var/netboot:/srv/http
+          - /var/debian-stable:/srv/nfs/debian
+          - /var/voyage:/srv/nfs/voyage
