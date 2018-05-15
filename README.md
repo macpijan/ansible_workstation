@@ -36,3 +36,16 @@ Faroth
 PXE and NFS server which rely on [pxe-server container](). This is QEMU VM
 with Debian template installed - more information [here](TBD).
 
+# How to run playbook
+
+```shell
+cd faroth
+ansible-playbook -b --ask-become-pass pxe-server-setup.yml
+```
+
+Contribution
+------------
+
+Before contributing your changes please check those with `ansible-lint` and
+`ansible-review`.
+
