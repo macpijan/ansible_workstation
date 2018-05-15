@@ -8,10 +8,14 @@ further deployment and management automation through Ansible.
 # Managing host prerequisites
 
 ```
-virtualenv ~/path/to/ansbile-venv
-source ~/path/to/ansbile-venv/bin/activate
-pip install ansible ansible-galaxy
+virtualenv ansible-venv
+source ansible-venv/bin/activate
+pip install ansible
 ansible-galaxy install angstwad.docker_ubuntu
+ansible-galaxy install debops.apt_preferences
+ssh-keygen -f ~/.ssh/ansible
+ssh-add ~/.ssh/ansible
+ssh-copy-id -i ~/.ssh/ansible <user>@<target_host>
 ```
 
 # Tested on version
