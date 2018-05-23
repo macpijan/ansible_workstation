@@ -27,7 +27,7 @@
   command: snap install spotify
 
 - name: Install Signal from snap
-  command: snap install signal
+  command: snap install signal-desktop
 
 - name: Install Skype from snap
   command: snap install skype
