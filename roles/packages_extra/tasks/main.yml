@@ -28,3 +28,6 @@
 
 - name: Install Signal from snap
   command: snap install signal
+
+- name: Install Skype from snap
+  command: snap install skype
