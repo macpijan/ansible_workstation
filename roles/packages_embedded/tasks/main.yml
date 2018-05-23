@@ -1,0 +1,15 @@
+- name: Instal embedded development packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - minicom
+    - mercurial
+    - openocd
+    - cmake
+    - repo
+    - build-essential
+    - autoconf
+    - gcc-arm-none-eabi
+    - libncurses

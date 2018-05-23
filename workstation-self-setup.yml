@@ -2,4 +2,7 @@
 - hosts: localhost
   become: true
   roles:
-    - packages
+    - upgrade
+    - packages_base
+    - packages_embedded
+    - packages_extra

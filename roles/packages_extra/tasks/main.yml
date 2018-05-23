@@ -1,0 +1,14 @@
+- name: Install extra packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - virtualbox
+    - nmap
+    - vim
+    - bvi
+    - tmux
+    - vim-gnome
+    - guake
+    - zsh
