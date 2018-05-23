@@ -18,3 +18,13 @@
     name: markdown-pdf
     global: yes
 
+## snap install
+# There is no ansible module for snap yet
+- name: Install Slack from snap
+  command: snap install slack
+
+- name: Install Spotify from snap
+  command: snap install spotify
+
+- name: Install Signal from snap
+  command: snap install signal
