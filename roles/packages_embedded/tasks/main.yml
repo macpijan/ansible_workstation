@@ -12,4 +12,5 @@
     - build-essential
     - autoconf
     - gcc-arm-none-eabi
-    - libncurses
+    - libncurses5
+    - libncurses5-dev
