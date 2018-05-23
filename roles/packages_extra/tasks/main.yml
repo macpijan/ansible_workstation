@@ -11,3 +11,10 @@
     - tmux
     - vim-gnome
     - guake
+    - npm
+
+- name: Install markdown-pdf npm package globally
+  npm:
+    name: markdown-pdf
+    global: yes
+
