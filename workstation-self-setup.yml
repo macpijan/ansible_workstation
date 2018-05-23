@@ -6,3 +6,4 @@
     - packages_base
     - packages_embedded
     - packages_extra
+    - oh-my-zsh

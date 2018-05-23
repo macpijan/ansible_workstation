@@ -1,4 +1,4 @@
-- name: Instal base packages
+- name: Install base packages
   apt:
     name: "{{ item }}"
     state: present
