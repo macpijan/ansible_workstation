@@ -2,6 +2,8 @@
 - hosts: localhost
   become: true
   user: maciej 
+  vars:
+    username: maciej
   roles:
     - upgrade
     - packages_base
