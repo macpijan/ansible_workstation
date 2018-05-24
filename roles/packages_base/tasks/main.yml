@@ -15,3 +15,11 @@
     - python-pip
     - virtualenv
     - docker
+
+## snap install
+# There is no ansible module for snap yet
+- name: Install Slack from snap
+  command: snap install slack
+
+- name: Install Skype from snap
+  command: snap install skype --classic
