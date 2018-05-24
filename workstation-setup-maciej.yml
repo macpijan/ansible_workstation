@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   become: true
+  user: maciej 
   roles:
     - upgrade
     - packages_base
