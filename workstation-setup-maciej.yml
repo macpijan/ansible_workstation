@@ -5,9 +5,20 @@
   user: maciej 
   vars:
     username: maciej
-  roles:
-    - upgrade
-    - packages_base
-    - packages_embedded
-    - packages_extra
-    - ohmyzsh
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      with_items:
+        - upgrade
+        - packages_base
+        - packages_embedded
+        - packages_extra
+        - ohmyzsh
+    - include_role:
+        name: geerlingguy.dotfiles
+      vars:
+        dotfiles_repo: "https://github.com/macpijan/dotfiles.git"
+        dotfiles_repo_local_destination: "/home/{{ username }}/dotfiles"
+        dotfiles_home: "/home/{{ username }}"
+        dotfiles_files:
+          - .gitconfig
