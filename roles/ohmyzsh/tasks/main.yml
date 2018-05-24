@@ -1,5 +1,5 @@
 ---
-- name: Installing Zsh and git
+- name: Install Zsh and git
   apt:
     name: "{{ item }}"
     state: present
@@ -23,3 +23,6 @@
     src: ~/.oh-my-zsh/templates/zshrc.zsh-template
     dest: ~/.zshrc
   become: no
+
+- name: Set Zsh as defult shell
+  command: chsh -s /bin/zsh
