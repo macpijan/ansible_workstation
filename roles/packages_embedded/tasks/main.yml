@@ -1,4 +1,4 @@
-- name: Instal embedded development packages
+- name: Install embedded development packages
   apt:
     name: "{{ item }}"
     state: present
