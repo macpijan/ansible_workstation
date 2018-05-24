@@ -9,7 +9,7 @@
     - zsh
 
 - name: Backing up existing ~/.zshrc
-  shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc ~/.zshrc.old; fi
+  shell: "if [ -f /home/{{ username }}/.zshrc ]; then mv /home/{{ username }}/.zshrc /home/{{ username }}/.zshrc.old; fi"
   become: no
 
 - name: Cloning oh-my-zsh
@@ -25,5 +25,4 @@
   become: no
 
 - name: Set Zsh as defult shell
-  command: chsh -s /bin/zsh
-  become: no
+  command: "chsh -s /bin/zsh {{ username }}"
