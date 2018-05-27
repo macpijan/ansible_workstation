@@ -25,3 +25,6 @@
         dotfiles_home: "/home/{{ username }}"
         dotfiles_files:
           - .gitconfig
+          - .tmux.conf
+          - .vimrc
+          - .zshrc
