@@ -15,6 +15,7 @@
         - packages_extra
         - ohmyzsh
         - vim
+        - guake
       loop_control:
         loop_var: role_name
     - include_role:
