@@ -7,6 +7,7 @@
     - git
     - vim
     - vim-gnome
+  become: true
 
 - name: Clone vim-pathogen repo
   git:
@@ -15,7 +16,7 @@
 
 - name: Create ~/.vim/autoload directory
   file:
-    path: "{{ vim_dir}}/autoload" 
+    path: "{{ vim_dir}}/autoload"
     state: directory
 
 - name: Autoload vim-pathogen (create symlink)

@@ -14,3 +14,4 @@
     - gcc-arm-none-eabi
     - libncurses5
     - libncurses5-dev
+  become: true

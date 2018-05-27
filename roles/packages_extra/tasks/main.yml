@@ -12,14 +12,18 @@
     - vim-gnome
     - guake
     - npm
+  become: true
 
 - name: Install markdown-pdf npm package globally
   npm:
     name: markdown-pdf
     global: yes
+  become: true
 
 - name: Install Spotify from snap
   command: snap install spotify
+  become: true
 
 - name: Install Signal from snap
   command: snap install signal-desktop
+  become: true

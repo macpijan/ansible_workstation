@@ -9,17 +9,20 @@
     - curl
     - gparted
     - awscli
-    - build-essential 
+    - build-essential
     - openssh-server
     - python
     - python-pip
     - virtualenv
     - docker
+  become: true
 
 ## snap install
 # There is no ansible module for snap yet
 - name: Install Slack from snap
   command: snap install slack
+  become: true
 
 - name: Install Skype from snap
   command: snap install skype --classic
+  become: true

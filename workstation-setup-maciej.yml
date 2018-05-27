@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
+  become: false
   user: maciej 
   vars:
     username: maciej
