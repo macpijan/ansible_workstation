@@ -7,13 +7,16 @@
     username: maciej
   tasks:
     - include_role:
-        name: "{{ item }}"
+        name: "{{ role_name }}"
       with_items:
         - upgrade
         - packages_base
         - packages_embedded
         - packages_extra
         - ohmyzsh
+        - vim
+      loop_control:
+        loop_var: role_name
     - include_role:
         name: geerlingguy.dotfiles
       vars:
