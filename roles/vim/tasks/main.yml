@@ -1,0 +1,35 @@
+- name: Install vim and vim-gnome
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - git
+    - vim
+    - vim-gnome
+
+- name: Clone vim-pathogen repo
+  git:
+    repo: "https://github.com/tpope/vim-pathogen.git"
+    dest: "{{ vim_dir }}/vim-pathogen"
+
+- name: Create ~/.vim/autoload directory
+  file:
+    path: "{{ vim_dir}}/autoload" 
+    state: directory
+
+- name: Autoload vim-pathogen (create symlink)
+  file:
+    src: "/home/{{ username }}/.vim/vim-pathogen/autoload/pathogen.vim"
+    dest: "{{ vim_dir }}/autoload/pathogen.vim"
+    state: link
+
+- name: Clone ack vim plugin
+  git:
+   repo: "https://github.com/mileszs/ack.vim.git"
+   dest: "{{ vim_dir }}/ack.vim"
+
+- name: Clone auto-pairs vim plugin
+  git:
+    repo: "https://github.com/jiangmiao/auto-pairs.git"
+    dest: "{{ vim_dir }}/auto-pairs"

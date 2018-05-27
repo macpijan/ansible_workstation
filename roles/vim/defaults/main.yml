@@ -1,0 +1,2 @@
+---
+vim_dir: "/home/{{ username }}/.vim"
