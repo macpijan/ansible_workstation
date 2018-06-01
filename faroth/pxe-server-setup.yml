@@ -60,7 +60,7 @@
     - name: Get netboot repository
       git:
         repo: https://github.com/3mdeb/netboot.git
-        version: 26f9df86249ecbd5f5d75dfaebd48f16d2a402f6
+        version: 0541b17ab70837b381f87a616309d229e31bb457 
         dest: /var/netboot
         force: yes
 
