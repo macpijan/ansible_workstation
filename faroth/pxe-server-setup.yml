@@ -60,6 +60,7 @@
     - name: Get netboot repository
       git:
         repo: https://github.com/3mdeb/netboot.git
+        version: 0541b17ab70837b381f87a616309d229e31bb457 
         dest: /var/netboot
         force: yes
 
@@ -88,6 +89,11 @@
       get_url:
         url: https://cloud.3mdeb.com/index.php/s/rUZPwRHOjxpSxN4/download
         dest: /tmp/voyage.tar.gz
+    
+    - name: Get Core-6.4
+      get_url:
+        url: https://cloud.3mdeb.com/index.php/s/AQuUdsYkBzO9UJz/download
+        dest: /tmp/core.tar.gz
 
     - name: Create /var/voyage
       file:
@@ -121,6 +127,13 @@
         dest: /var/voyage
         remote_src: yes
         creates: /var/voyage
+
+    - name: Unarchive Core
+      unarchive:
+        src: /tmp/core.tar.gz
+        dest: /var/netboot
+        remote_src: yes
+        creates: /var/netboot/core-6.4
 
     - name: Mount nfsd
       mount:
