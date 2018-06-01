@@ -115,14 +115,14 @@
     - name: Unarchive Debian rootfs
       unarchive:
         src: /tmp/debian-stable.tar.gz
-        dest: /var/debian-stable
+        dest: /var
         remote_src: yes
         keep_newer: yes
 
     - name: Unarchive Xen rootfs
       unarchive:
         src: /tmp/xen.tar.gz
-        dest: /var/xen
+        dest: /var
         remote_src: yes
         keep_newer: yes
 
@@ -136,7 +136,7 @@
     - name: Unarchive Core
       unarchive:
         src: /tmp/core.tar.gz
-        dest: /var/netboot/core-6.4
+        dest: /var/netboot/
         remote_src: yes
         keep_newer: yes
 
