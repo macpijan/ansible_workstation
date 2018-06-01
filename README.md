@@ -33,8 +33,8 @@ ansible 2.5.2
 Faroth
 ------
 
-PXE and NFS server which rely on [pxe-server container](). This is QEMU VM
-with Debian template installed - more information [here](TBD).
+PXE and NFS server which rely on [pxe-server container](https://hub.docker.com/r/3mdeb/pxe-server/). This is QEMU VM
+with Debian template installed - more information [here](https://github.com/3mdeb/pxe-server).
 
 # How to run playbook
 
