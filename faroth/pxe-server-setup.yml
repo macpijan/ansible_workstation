@@ -71,7 +71,7 @@
 
     - name: Get kernels
       get_url:
-        url: https://cloud.3mdeb.com/index.php/s/zYdqxiFgWIpVIfj/download
+        url: https://cloud.3mdeb.com/index.php/s/aGbBf0EkPYhGyY4/download
         dest: /tmp/kernels.tar.gz
 
     - name: Get Debian rootfs
