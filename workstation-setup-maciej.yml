@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   become: false
-  user: maciej 
+  user: maciej
   vars:
     username: maciej
   tasks:
@@ -11,6 +11,8 @@
       with_items:
         - upgrade
         - packages_base
+        - ssh
+        - docker
         - packages_embedded
         - packages_extra
         - ohmyzsh
