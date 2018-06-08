@@ -53,3 +53,8 @@
     group: root
     mode: 0644
   become: true
+
+- name: Mount /storage
+  mount:
+    path: /storage
+    state: mounted
