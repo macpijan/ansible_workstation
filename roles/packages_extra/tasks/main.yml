@@ -12,6 +12,7 @@
     - vim-gnome
     - guake
     - npm
+    - inkscape
   become: true
 
 - name: Install markdown-pdf npm package globally
