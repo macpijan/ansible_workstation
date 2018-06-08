@@ -90,3 +90,9 @@
     key: "/apps/guake/general/prompt-on-close-tab"
     value: 2
     state: present
+
+- name: Guake - autostart
+  copy:
+    src: /usr/share/applications/guake.desktop
+    dest: /etc/xdg/autostart/guake.desktop
+  become: true
