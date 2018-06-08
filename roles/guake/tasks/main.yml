@@ -84,3 +84,9 @@
     key: "/apps/guake/general/window-halignment"
     value: 1
     state: present
+
+- name: Guake - always prompt on tab close
+  dconf:
+    key: "/apps/guake/general/prompt-on-close-tab"
+    value: 2
+    state: present
