@@ -36,3 +36,20 @@
     state: started
     enabled: yes
   become: yes
+
+- name: Create /storage directory
+  file:
+    path: /storage
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add /storage mount entry to fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "UUID={{ storage_uuid }} /storage ext4 0 1"
+    state: present
+    owner: root
+    group: root
+    mode: 0644
+  become: true

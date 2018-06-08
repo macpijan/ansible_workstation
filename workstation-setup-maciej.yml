@@ -6,14 +6,17 @@
   vars:
     # general variables
     username: maciej
-    # used by network_extra_maciej templates
+    # used by extra_maciej role and templates
     wireless_iface: wlp6s0
     wired_iface: enp7s0
+    storage_uuid: "db7decaf-267e-44c8-8d69-d15ee0ba9837"
     # used by git gitconfig template
     git_name: "Maciej Pijanowski"
     git_email: "maciej.pijanowski@3mdeb.com"
     # used by ohmyzsh (zshrc template)
     zshrc_template: "zshrc_maciej.j2"
+    # used by tmux role
+    tmux_template: "maciej_tmuxconf.j2"
   tasks:
     - include_role:
         name: "{{ role_name }}"
@@ -25,9 +28,10 @@
         - git
         - packages_embedded
         - packages_extra
-        - network_extra_maciej
         - ohmyzsh
+        - tmux
         - vim
         - guake
+        - extra_maciej
       loop_control:
         loop_var: role_name
