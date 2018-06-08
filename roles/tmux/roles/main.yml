@@ -1,0 +1,15 @@
+---
+- name: Install tmux
+  apt:
+    name: tmux
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Install ~/.tmux.conf from template
+  template:
+    src: "{{ tmuxconf_template }}"
+    dest: ~/.tmux.conf
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
