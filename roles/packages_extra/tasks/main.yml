@@ -20,6 +20,12 @@
     global: yes
   become: true
 
+- name: Install markdown-toc npm package globally
+  npm:
+    name: markdown-toc
+    global: yes
+  become: true
+
 - name: Install Spotify from snap
   command: snap install spotify
   become: true
