@@ -1,0 +1,31 @@
+# I really prefer not to use NetworkManager
+- name: Remove NetworkManager
+  apt:
+    name: network-manager
+    state: absent
+  become: true
+
+- name: Install wpagui
+  apt:
+    name: wpagui
+    state: present
+  become: true
+
+# and use plain systemd instead
+- name: Wireless network systemd config
+  template:
+    src: 40-wireless-dhcp.network.j2
+    dest: /etc/systemd/network/40-wireless-dhcp.network
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Wired network systemd config
+  template:
+    src: 50-wired-dhcp.network.j2
+    dest: /etc/systemd/network/50-wired-dhcp.network
+    owner: root
+    group: root
+    mode: '0644'
+  become: true

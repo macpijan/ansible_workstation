@@ -5,6 +5,8 @@
   user: maciej
   vars:
     username: maciej
+    wireless_iface: wlp6s0
+    wired_iface: enp7s0
   tasks:
     - include_role:
         name: "{{ role_name }}"
@@ -15,6 +17,7 @@
         - docker
         - packages_embedded
         - packages_extra
+        - network_extra_maciej
         - ohmyzsh
         - vim
         - guake
