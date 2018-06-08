@@ -29,3 +29,10 @@
     group: root
     mode: '0644'
   become: true
+
+- name: Start and enable systemd-networkd
+  service:
+    name: systemd-networkd
+    state: started
+    enabled: yes
+  become: yes
