@@ -4,11 +4,16 @@
   become: false
   user: maciej
   vars:
+    # general variables
     username: maciej
+    # used by network_extra_maciej templates
     wireless_iface: wlp6s0
     wired_iface: enp7s0
+    # used by git gitconfig template
     git_name: "Maciej Pijanowski"
     git_email: "maciej.pijanowski@3mdeb.com"
+    # used by ohmyzsh (zshrc template)
+    zshrc_template: "zshrc_maciej.j2"
   tasks:
     - include_role:
         name: "{{ role_name }}"
