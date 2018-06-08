@@ -6,11 +6,10 @@
 
 * Created user with `sudo` access
 
-* Installed `ansible` and `dotfiles` role:
+* Installed `ansible`
 
 ```bash
 sudo apt install ansible
-ansible-galaxy install geerlingguy.dotfiles
 ```
 
 ## Usage

@@ -26,14 +26,3 @@
         - guake
       loop_control:
         loop_var: role_name
-    - include_role:
-        name: geerlingguy.dotfiles
-      vars:
-        dotfiles_repo: "https://github.com/macpijan/dotfiles.git"
-        dotfiles_repo_local_destination: "/home/{{ username }}/dotfiles"
-        dotfiles_home: "/home/{{ username }}"
-        dotfiles_files:
-          - .gitconfig
-          - .tmux.conf
-          - .vimrc
-          - .zshrc
