@@ -47,7 +47,7 @@
 - name: Add /storage mount entry to fstab
   lineinfile:
     path: /etc/fstab
-    line: "UUID={{ storage_uuid }} /storage ext4 0 1"
+    line: "UUID={{ storage_uuid }} /storage ext4 defaults 0 1"
     state: present
     owner: root
     group: root
