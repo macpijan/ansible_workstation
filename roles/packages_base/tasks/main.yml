@@ -15,6 +15,7 @@
     - python-pip
     - virtualenv
     - docker
+    - snapd
   become: true
 
 ## snap install
