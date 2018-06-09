@@ -35,10 +35,12 @@
     name: systemd-networkd
     state: started
     enabled: yes
-  become: yes
+  become: true
 
-- name: Create /storage directory
-  file:
+- name: Mount /storage and add fstab entry
+  mount:
+    src: "UUID={{ storage_uuid }}"
+    fstype: ext4
     path: /storage
     state: directory
     owner: "{{ username }}"
@@ -54,7 +56,3 @@
     mode: 0644
   become: true
 
-- name: Mount /storage
-  mount:
-    path: /storage
-    state: mounted
