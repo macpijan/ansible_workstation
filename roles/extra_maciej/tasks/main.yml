@@ -42,17 +42,28 @@
     src: "UUID={{ storage_uuid }}"
     fstype: ext4
     path: /storage
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    state: mounted
+  become: true
 
-- name: Add /storage mount entry to fstab
-  lineinfile:
-    path: /etc/fstab
-    line: "UUID={{ storage_uuid }} /storage ext4 defaults 0 1"
-    state: present
+- name: Create wpa_supplicant config
+  template:
+    src: "wpa_supplicant-iface.conf.j2"
+    dest: "/etc/wpa_supplicant/wpa_supplicant-{{ wireless_iface }}.conf"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
+  become: true
+
+- name: Start and enable wpa_supplicant service
+  service:
+    name: "wpa_supplicant@{{ wireless_iface }}"
+    state: started
+    enabled: yes
+  become: true
+
+- name: wpa_gui - autostart
+  copy:
+    src: /usr/share/applications/wpa_gui.desktop
+    dest: /etc/xdg/autostart/wpa_gui.desktop
   become: true
 
