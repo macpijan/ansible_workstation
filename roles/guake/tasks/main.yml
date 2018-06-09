@@ -91,6 +91,12 @@
     value: 2
     state: present
 
+- name: Guake - open new tab in $HOME dir
+  dconf:
+    key: "/apps/guake/general/open-tab-cwd"
+    value: false
+    state: present
+
 - name: Guake - autostart
   copy:
     src: /usr/share/applications/guake.desktop
