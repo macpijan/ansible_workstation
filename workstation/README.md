@@ -50,7 +50,7 @@ Currently packages are distributed into 3 groups:
 
 * `packages_base` - suitable for every developer
 
-* `pacages_embedded` - especially useful for embedded developers
+* `packages_embedded` - especially useful for embedded developers
 
 * `packages_extra_*` - user-specific packages
 
