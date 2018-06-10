@@ -1,0 +1,22 @@
+- name: Install openvpn
+  apt:
+    name: "openvpn"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Install openvpn config file
+  copy:
+    src: "{{ openvpn_encrypted_config_file }}"
+    dest: "{{ openvpn_config_file }}"
+    owner: root
+    group: root
+    mode: 0600
+  become: true
+
+- name: Stop and disable openvpn service by default
+  service:
+    name: "{{ openvpn_service }}"
+    state: stopped
+    enabled: no
+  become: true

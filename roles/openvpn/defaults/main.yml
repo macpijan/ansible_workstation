@@ -1,0 +1,5 @@
+---
+openvpn_config: "3mdeb"
+openvpn_config_dir: "/etc/openvpn/client"
+openvpn_config_file: "{{ openvpn_config_dir }}/{{ openvpn_config }}.conf"
+openvpn_service: "openvpn-client@{{ openvpn_config }}.service"

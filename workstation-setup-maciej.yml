@@ -17,6 +17,8 @@
     zshrc_template: "zshrc_maciej.j2"
     # used by tmux role
     tmux_template: "maciej_tmuxconf.j2"
+    # openvpn
+    openvpn_encrypted_config_file: "macpijan.conf"
   tasks:
     - include_role:
         name: "{{ role_name }}"
@@ -27,6 +29,7 @@
         - docker
         - git
         - packages_embedded
+        - openvpn
         - packages_extra
         - ohmyzsh
         - tmux
