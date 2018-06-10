@@ -7,6 +7,4 @@ git_email: "embedded.user@3mdeb.com"
 # used by ohmyzsh (zshrc template)
 zshrc_template: "zshrc_embedded_dev_example.j2"
 # used by tmux role
-tmux_template: "macpijan.j2"
-# openvpn
-openvpn_encrypted_config_file: "macpijan.conf"
+tmux_template: "embeddeddev_tmux.conf.j2"
