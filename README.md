@@ -15,14 +15,34 @@ sudo apt install ansible
 ## Usage
 
 ```bash
-ansible-pull --url git@github.com:macpijan/ansible_workstation.git --ask-become-pass PLAYBOOK
+ansible-playbook --ask-become-pass --extra-vars @extra_vars/USERNAME.yml workstation-setup-USERNAME.yml
 ```
+
+When playbook providies files encrypted by `ansible-vault` (i.e. openvpn config
+file), passing vault pass is additionally required:
+
+```bash
+--vault-password-file vault_pass.txt
+```
+
+Currently the default and tested usage is self-setup of the workstation on
+localhost.
 
 ## Playbooks
 
 Currently available playbooks are:
 
-* `workstation-self-setup.yml`
+* `workstation-setup-base.yml`
+  - roles suitable for every developer
+
+* `workstation-setup-embedded.yml`
+  - includes `worstation-setup-base.yml` playbook
+  - adds roles suitable for embedded developer on top of it
+
+* `workstation-setup-macpijan.yml`
+  - includes `workstation-setup-base.yml` role
+  - includes `workstation-setup-embedded.yml` role
+  - add `macpijan` custom roles
 
 ## Packages
 
