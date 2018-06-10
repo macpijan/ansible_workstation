@@ -1,0 +1,16 @@
+---
+# general variables
+username: maciej
+# used by extra_maciej role and templates
+wireless_iface: wlp6s0
+wired_iface: enp7s0
+storage_uuid: "db7decaf-267e-44c8-8d69-d15ee0ba9837"
+# used by git gitconfig template
+git_name: "Maciej Pijanowski"
+git_email: "maciej.pijanowski@3mdeb.com"
+# used by ohmyzsh (zshrc template)
+zshrc_template: "zshrc_maciej.j2"
+# used by tmux role
+tmux_template: "maciej_tmuxconf.j2"
+# openvpn
+openvpn_encrypted_config_file: "macpijan.conf"

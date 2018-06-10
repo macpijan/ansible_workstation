@@ -1,5 +1,5 @@
 ---
-- import_playbook: workstation-setup-embedded.yml
+- import_playbook: workstation-setup-base.yml
 - hosts: localhost
   connection: local
   user: "{{ username }}"
@@ -8,12 +8,6 @@
     - include_role:
         name: "{{ role_name }}"
       with_items:
-        - openvpn
-        - packages_extra
-        - ohmyzsh
-        - tmux
-        - vim
-        - guake
-        - extra_maciej
+        - packages_embedded
       loop_control:
         loop_var: role_name
