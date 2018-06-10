@@ -94,7 +94,7 @@
 - name: Guake - open new tab in $HOME dir
   dconf:
     key: "/apps/guake/general/open-tab-cwd"
-    value: false
+    value: 'false'
     state: present
 
 - name: Guake - autostart
