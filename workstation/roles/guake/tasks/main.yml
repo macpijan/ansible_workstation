@@ -1,0 +1,104 @@
+- name: Install guake terminal
+  apt:
+    name: "guake"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Dconf dependencies - install python-pip
+  apt:
+    name:  "python-pip"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Dconf dependencies - install psutil python module
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - psutil
+  become: yes
+
+- name: Guake - set background transparency to 100
+  dconf:
+    key: "/apps/guake/style/background/transparency"
+    value: 100
+    state: present
+
+- name: Guake - set color palette (Solarized Dark)
+  dconf:
+    key: "/apps/guake/style/font/palette"
+    value: "\'#000027273131:#D0D01B1B2424:#727289890505:#A5A577770505:#20207575C7C7:#C6C61B1B6E6E:#252591918585:#E9E9E2E2CBCB:#00001E1E2626:#BDBD36361212:#46465A5A6161:#525267676F6F:#707081818383:#58585656B9B9:#818190908F8F:#FCFCF4F4DCDC:#707081818383:#00001E1E2626\'"
+    state: present
+
+- name: Guake - set palette name to Solarized Dark
+  dconf:
+    key: "/apps/guake/style/font/palette-name"
+    value: "\'Solarized Dark\'"
+    state: present
+
+- name: Guake - set close-tab keybind to <Alt>c
+  dconf:
+    key: "/apps/guake/keybindings/local/close-tab"
+    value: "\'<Alt>c\'"
+    state: present
+
+- name: Guake - set new-tab keybind to <Alt>d
+  dconf:
+    key: "/apps/guake/keybindings/local/new-tab"
+    value: "\'<Alt>d\'"
+    state: present
+
+- name: Guake - set next-tab keybind to <Alt>s
+  dconf:
+    key: "/apps/guake/keybindings/local/next-tab"
+    value: "\'<Alt>s\'"
+    state: present
+
+- name: Guake - set previous-tab to <Alt>a
+  dconf:
+    key: "/apps/guake/keybindings/local/previous-tab"
+    value: "\'<Alt>a\'"
+    state: present
+
+- name: Guake - set rename-current-ta keybind to <Alt>r
+  dconf:
+    key: "/apps/guake/keybindings/local/rename-current-tab"
+    value: "\'<Alt>r\'"
+    state: present
+
+- name: Guake - set window-width to 50
+  dconf:
+    key: "/apps/guake/general/window-width"
+    value: 50
+    state: present
+
+- name: Guake - set window-height to 100
+  dconf:
+    key: "/apps/guake/general/window-height"
+    value: 100
+    state: present
+
+- name: Guake - set horizontal window alignment to LEFT
+  dconf:
+    key: "/apps/guake/general/window-halignment"
+    value: 1
+    state: present
+
+- name: Guake - always prompt on tab close
+  dconf:
+    key: "/apps/guake/general/prompt-on-close-tab"
+    value: 2
+    state: present
+
+- name: Guake - open new tab in $HOME dir
+  dconf:
+    key: "/apps/guake/general/open-tab-cwd"
+    value: 'false'
+    state: present
+
+- name: Guake - autostart
+  copy:
+    src: /usr/share/applications/guake.desktop
+    dest: /etc/xdg/autostart/guake.desktop
+  become: true

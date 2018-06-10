@@ -1,0 +1,29 @@
+- name: Install base packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - git
+    - jq
+    - curl
+    - gparted
+    - awscli
+    - build-essential
+    - openssh-server
+    - python
+    - python-pip
+    - virtualenv
+    - docker
+    - snapd
+  become: true
+
+## snap install
+# There is no ansible module for snap yet
+- name: Install Slack from snap
+  command: snap install slack
+  become: true
+
+- name: Install Skype from snap
+  command: snap install skype --classic
+  become: true

@@ -1,0 +1,27 @@
+---
+- name: Install Zsh and git
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - git
+    - zsh
+  become: true
+
+- name: Cloning oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: ~/.oh-my-zsh
+
+- name: Creating new ~/.zshrc from template
+  template:
+    src: "{{ zshrc_template }}"
+    dest: ~/.zshrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
+
+- name: Set Zsh as defult shell
+  command: "chsh -s /bin/zsh {{ username }}"
+  become: true

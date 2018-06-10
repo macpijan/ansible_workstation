@@ -1,0 +1,67 @@
+# zsh as default shell
+set-option -g default-shell /bin/zsh
+
+### KEY BINDING ###
+
+# allow to scroll with mouse scroll
+set -g mouse on
+
+# use vi-like movement keys
+setw -g mode-keys vi
+
+# additional vi-llike copy and paste
+bind-key -t copy-mode-vi-copy 'v' send-keys -X begin-selection
+bind-key -T copy-mode-vi 'y' send-keys -X copy-selection
+
+# vi-like pane switching
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# scrollback buffer n lines
+set -g history-limit 10000
+
+### STATUS BAR ###
+
+set -g display-time 2000
+
+# start window indexing at one instead of zero
+set -g base-index 1
+
+# center align the window list
+set -g status-justify centre
+
+### COLORS ###
+
+set-option -g default-terminal "screen-256color"
+
+# default statusbar colors
+set-option -g status-bg black #base02
+set-option -g status-fg yellow #yellow
+set-option -g status-attr default
+
+# default window title colors
+set-window-option -g window-status-fg brightblue #base0
+set-window-option -g window-status-bg default
+#set-window-option -g window-status-attr dim
+
+# active window title colors
+set-window-option -g window-status-current-fg brightred #orange
+set-window-option -g window-status-current-bg default
+#set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg black #base02
+set-option -g pane-active-border-fg brightgreen #base01
+
+# message text
+set-option -g message-bg black #base02
+set-option -g message-fg brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green

@@ -1,0 +1,151 @@
+- name: Install vim and vim-gnome
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - git
+    - vim
+    - vim-gnome
+  become: true
+
+- name: Clone vim-pathogen repo
+  git:
+    repo: "https://github.com/tpope/vim-pathogen.git"
+    dest: "{{ vim_dir }}/vim-pathogen"
+
+- name: Create ~/.vim directory
+  file:
+    path: "{{ vim_dir }}"
+    state: directory
+
+- name: Create ~/.vim/autoload directory
+  file:
+    path: "{{ vim_dir}}/autoload"
+    state: directory
+
+- name: Autoload vim-pathogen (create symlink)
+  file:
+    src: "/home/{{ username }}/.vim/vim-pathogen/autoload/pathogen.vim"
+    dest: "{{ vim_dir }}/autoload/pathogen.vim"
+    state: link
+
+- name: Create ~/.vim/bundle directory
+  file:
+    path: "{{ vim_bundle }}"
+    state: directory
+
+- name: Clone ack vim plugin
+  git:
+   repo: "https://github.com/mileszs/ack.vim.git"
+   dest: "{{ vim_bundle }}/ack.vim"
+
+- name: Clone auto-pairs vim plugin
+  git:
+    repo: "https://github.com/jiangmiao/auto-pairs.git"
+    dest: "{{ vim_bundle }}/auto-pairs"
+
+- name: Clone ctrlp.vim plugin
+  git:
+    repo: "https://github.com/kien/ctrlp.vim.git"
+    dest: "{{ vim_bundle }}/ctrlp.vim"
+
+- name: Clone nerdcommenter plugin
+  git:
+    dest: "{{ vim_bundle }}/nerdcommenter"
+    repo: "https://github.com/scrooloose/nerdcommenter.git"
+
+- name: Clone nerdtree plugin
+  git:
+    dest: "{{ vim_bundle }}/nerdtree"
+    repo: "https://github.com/scrooloose/nerdtree.git"
+
+- name: Clone powerline plugin
+  git:
+    dest: "{{ vim_bundle }}/powerline"
+    repo: "https://github.com/powerline/powerline.git"
+
+- name: Clone python-mode plugin
+  git:
+    dest: "{{ vim_bundle }}/python-mode"
+    repo: "https://github.com/python-mode/python-mode.git"
+
+- name: Clone tagbar plugin
+  git:
+    dest: "{{ vim_bundle }}/tagbar"
+    repo: "https://github.com/majutsushi/tagbar.git"
+
+- name: CLone vim-addon-mw-utils plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-addon-mw-utils"
+    repo: "https://github.com/MarcWeber/vim-addon-mw-utils.git"
+
+- name: Clone vim-colors-solarized plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-colors-solarized"
+    repo: "https://github.com/altercation/vim-colors-solarized.git"
+
+- name: Clone vim-easymotion plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-easymotion"
+    repo: "https://github.com/easymotion/vim-easymotion.git"
+
+- name: Clone vim-fugitive
+  git:
+    dest:  "{{ vim_bundle }}/vim-fugitive"
+    repo: "https://github.com/tpope/vim-fugitive.git"
+
+- name: Clone vim-gitgutter plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-gitgutter"
+    repo: "https://github.com/airblade/vim-gitgutter.git"
+
+- name: Clone vim-move plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-move"
+    repo: "https://github.com/matze/vim-move.git"
+
+- name: Clone vim-over plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-over"
+    repo: "https://github.com/osyo-manga/vim-over.git"
+
+- name: Clone vim-repeat plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-repeat"
+    repo: "https://github.com/tpope/vim-repeat.git"
+
+- name: Clone git-signify plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-signify"
+    repo: "https://github.com/mhinz/vim-signify.git"
+
+- name: Clone vim-sleuth plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-sleuth"
+    repo: "https://github.com/tpope/vim-sleuth.git"
+
+- name: Clone vim-surround plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-surround"
+    repo: "https://github.com/tpope/vim-surround.git"
+
+- name: Clone wildfire.vim plugin
+  git:
+    dest: "{{ vim_bundle }}/wildfire.vim"
+    repo: "https://github.com/gcmt/wildfire.vim.git"
+
+- name: Clone tlib.vim plugin
+  git:
+    dest: "{{ vim_bundle }}/tlib_vim"
+    repo: "https://github.com/tomtom/tlib_vim.git"
+
+- name: Clone syntastic plugin
+  git:
+    dest: "{{ vim_bundle }}/syntastic"
+    repo: "https://github.com/vim-syntastic/syntastic.git"
+
+- name: Clone vim-indent-guides plugin
+  git:
+    dest: "{{ vim_bundle }}/vim-indent-guides"
+    repo: "https://github.com/nathanaelkane/vim-indent-guides.git"

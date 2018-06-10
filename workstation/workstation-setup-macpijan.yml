@@ -1,0 +1,19 @@
+---
+- import_playbook: workstation-setup-embedded.yml
+- hosts: localhost
+  connection: local
+  user: "{{ username }}"
+  become: false
+  tasks:
+    - include_role:
+        name: "{{ role_name }}"
+      with_items:
+        - openvpn
+        - packages_extra_macpijan
+        - ohmyzsh
+        - tmux
+        - vim
+        - guake
+        - extra_macpijan
+      loop_control:
+        loop_var: role_name

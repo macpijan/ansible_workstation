@@ -1,0 +1,13 @@
+---
+- import_playbook: workstation-setup-base.yml
+- hosts: localhost
+  connection: local
+  user: "{{ username }}"
+  become: false
+  tasks:
+    - include_role:
+        name: "{{ role_name }}"
+      with_items:
+        - packages_embedded
+      loop_control:
+        loop_var: role_name

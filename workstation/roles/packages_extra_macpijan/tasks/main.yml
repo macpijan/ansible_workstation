@@ -1,0 +1,36 @@
+- name: Install extra packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - virtualbox
+    - nmap
+    - vim
+    - bvi
+    - tmux
+    - vim-gnome
+    - guake
+    - npm
+    - inkscape
+  become: true
+
+- name: Install markdown-pdf npm package globally
+  npm:
+    name: markdown-pdf
+    global: yes
+  become: true
+
+- name: Install markdown-toc npm package globally
+  npm:
+    name: markdown-toc
+    global: yes
+  become: true
+
+- name: Install Spotify from snap
+  command: snap install spotify
+  become: true
+
+- name: Install Signal from snap
+  command: snap install signal-desktop
+  become: true

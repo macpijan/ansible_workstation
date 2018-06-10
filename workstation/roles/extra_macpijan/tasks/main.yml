@@ -1,0 +1,69 @@
+# I really prefer not to use NetworkManager
+- name: Remove NetworkManager
+  apt:
+    name: network-manager
+    state: absent
+  become: true
+
+- name: Install wpagui
+  apt:
+    name: wpagui
+    state: present
+  become: true
+
+# and use plain systemd instead
+- name: Wireless network systemd config
+  template:
+    src: 40-wireless-dhcp.network.j2
+    dest: /etc/systemd/network/40-wireless-dhcp.network
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Wired network systemd config
+  template:
+    src: 50-wired-dhcp.network.j2
+    dest: /etc/systemd/network/50-wired-dhcp.network
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Start and enable systemd-networkd
+  service:
+    name: systemd-networkd
+    state: started
+    enabled: yes
+  become: true
+
+- name: Mount /storage and add fstab entry
+  mount:
+    src: "UUID={{ storage_uuid }}"
+    fstype: ext4
+    path: /storage
+    state: mounted
+  become: true
+
+- name: Create wpa_supplicant config
+  template:
+    src: "wpa_supplicant-iface.conf.j2"
+    dest: "/etc/wpa_supplicant/wpa_supplicant-{{ wireless_iface }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Start and enable wpa_supplicant service
+  service:
+    name: "wpa_supplicant@{{ wireless_iface }}"
+    state: started
+    enabled: yes
+  become: true
+
+- name: wpa_gui - autostart
+  copy:
+    src: /usr/share/applications/wpa_gui.desktop
+    dest: /etc/xdg/autostart/wpa_gui.desktop
+  become: true
+

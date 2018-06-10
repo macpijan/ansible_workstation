@@ -1,0 +1,16 @@
+- name: Install docker and docker-compose
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - docker.io
+    - docker-compose
+  become: true
+
+- name: Add user to docker group
+  user:
+    name: "{{ username }}"
+    groups: docker
+    append: yes
+  become: true
