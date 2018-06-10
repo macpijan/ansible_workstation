@@ -57,3 +57,16 @@ Currently packages are distributed into 3 groups:
 ## Modification
 
 Additional playbooks with different host / packages configuration may be added
+
+### Adding playbook for new user
+
+* Create [playbook file](workstation-setup-embedded-dev-example.yml)
+
+* Create [extra vars file](extra_vars/embedded-dev-example.yml)
+
+* Add your template files to the roles used in playbook (if required). In this
+  example adding templates for roles:
+  - `ohmyzsh`
+  - `vim`
+  - `tmux`
+  is necessary.

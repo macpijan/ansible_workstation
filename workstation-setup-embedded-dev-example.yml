@@ -1,0 +1,15 @@
+---
+- import_playbook: workstation-setup-embedded.yml
+- hosts: localhost
+  connection: local
+  user: "{{ username }}"
+  become: false
+  tasks:
+    - include_role:
+        name: "{{ role_name }}"
+      with_items:
+        - tmux
+        - vim
+        - ohmyzsh
+      loop_control:
+        loop_var: role_name
