@@ -9,11 +9,11 @@
         name: "{{ role_name }}"
       with_items:
         - openvpn
-        - packages_extra
+        - packages_extra_macpijan
         - ohmyzsh
         - tmux
         - vim
         - guake
-        - extra_maciej
+        - extra_macpijan
       loop_control:
         loop_var: role_name
