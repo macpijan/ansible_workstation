@@ -11,6 +11,6 @@ git_email: "maciej.pijanowski@3mdeb.com"
 # used by ohmyzsh (zshrc template)
 zshrc_template: "zshrc_macpijan.j2"
 # used by tmux role
-tmux_template: "macpijan.j2"
+tmux_template: "macpijan_tmux.conf.j2"
 # openvpn
 openvpn_encrypted_config_file: "macpijan.conf"
